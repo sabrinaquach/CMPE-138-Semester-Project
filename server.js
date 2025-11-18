@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 
 const app = express();
 app.use(express.json());
+app.use(express.static("public"));
 
 //database connection config
 const db = mysql.createConnection({
@@ -216,12 +217,12 @@ app.delete("/jobs/:id", (req, res) => {
 //application routes
 //CREATE application
 app.post("/applications", (req, res) => {
-    const { student_id, job_id, status, withdrawn_flag } = req.body;
+    const { student_id, job_id } = req.body;
     const sql = `
         INSERT INTO Application (Student_ID, Job_ID, Status, Withdrawn_Flag)
-        VALUES (?, ?, ?, ?)
+        VALUES (?, ?, 'Submitted', FALSE)
     `;
-    db.query(sql, [student_id, job_id, status || "Submitted", withdrawn_flag || false], err => {
+    db.query(sql, [student_id, job_id], err => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ message: "Application submitted successfully" });
     });
