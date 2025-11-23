@@ -1,183 +1,92 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>Internship & Job Tracker</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <style>
-        body { 
-            font-family: system-ui, 
-            sans-serif; margin: 24px; 
-        }
-        h1 { margin: 0 0 12px; }
-        section { 
-            border: 1px solid #ddd; 
-            border-radius: 10px; 
-            padding: 16px; 
-            margin: 16px 0; 
-        }
-        button { 
-            cursor: pointer; 
-            margin-top: 1.5rem;
-        }
-        input, select { 
-            padding: 6px; 
-            max-width: 420px; 
-        }
-        .row { 
-            display: grid; 
-            gap: 8px; 
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
-        }
-        .column { 
-            display: flex; 
-            flex-direction: column;
-            gap: 1.5rem; 
-        }
-        .column-container {
-            display: flex; 
-            flex-direction: column;
-            gap: 5px;
-        }
-        p {
-            margin: 0;
-        }
-        pre { 
-            background: #f7f7f7; 
-            padding: 12px; 
-            overflow: auto; 
-        }
-    </style>
+  <meta charset="utf-8" />
+  <title>Internship & Job Tracker</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; }
+    h1 { margin: 0 0 12px; }
+    section { border: 1px solid #ddd; border-radius: 10px; padding: 16px; margin: 16px 0; }
+    button { cursor: pointer; margin-top: 1.5rem; }
+    input, select { padding: 6px; max-width: 420px; }
+    .row { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .column { display: flex; flex-direction: column; gap: 1.5rem; }
+    .column-container { display: flex; flex-direction: column; gap: 5px; }
+    p { margin: 0; }
+    pre { background: #f7f7f7; padding: 12px; overflow: auto; }
+  </style>
 </head>
 <body>
-    <h1>Internship & Job Tracker</h1>
+  <h1>Internship & Job Tracker</h1>
 
-    <section>
-        <h2>Choose Role</h2>
-        <label><input type="radio" name="role" value="student" checked> Student</label>
-        <label style="margin-left:16px;"><input type="radio" name="role" value="recruiter"> Recruiter</label>
-      </section>
+  <section>
+    <h2>Choose Role</h2>
+    <label><input type="radio" name="role" value="student" checked> Student</label>
+    <label style="margin-left:16px;"><input type="radio" name="role" value="recruiter"> Recruiter</label>
+  </section>
 
-<!-- display tables from database -->
-    <section data-role="shared">
-        <h2>Quick Actions</h2>
-        <div class="row">
-        <button id="loadCompanies">Load Companies</button>
-        <button id="loadRecruiters">Load Recruiters</button>
-        <button id="loadJobs">Load Jobs</button>
-        <button id="loadApplications">Load Applications</button>
-        <button id="loadStudents">Load Students</button>
-        </div>
-        <pre id="output">Click a button to load data…</pre>
-    </section>
+  <section data-role="shared">
+    <h2>Quick Actions</h2>
+    <div class="row">
+      <button id="loadCompanies">Load Companies</button>
+      <button id="loadRecruiters">Load Recruiters</button>
+      <button id="loadJobs">Load Jobs</button>
+      <button id="loadApplications">Load Applications</button>
+      <button id="loadStudents">Load Students</button>
+    </div>
+    <pre id="output">Click a button to load data…</pre>
+  </section>
 
-<!-- Student -->
-    <section data-role="student">
-        <h2>Add Student</h2>
-        <div class="column">
-            <div class="column-container">
-                <p>Enter your name</p>
-                <input id="sName" placeholder="Name" />
-            </div>
-            <div class="column-container">
-                <p>Enter your email</p>
-                <input id="sEmail" placeholder="Email" />
-            </div>
-            <div class="column-container">
-                <p>Enter your major</p>
-                <input id="sMajor" placeholder="Major" />
-            </div>
-            <div class="column-container">
-                <p>Enter your resume filename</p>
-                <input id="sResume" placeholder="Resume filename" />
-            </div>
-            <div class="column-container">
-                <p>Enter your university name</p>
-                <input id="sUniv" placeholder="University Name" />
-            </div>
-            <div class="column-container">
-                <p>Enter your skills (comma separated)</p>
-                <input id="sSkills" placeholder="Skills (comma separated)" />
-            </div>
-        </div>
-        <button id="addStudent">Create Student</button>
-    </section>
+  <!-- Student -->
+  <section data-role="student">
+    <h2>Add Student</h2>
+    <div class="column">
+      <div class="column-container"><p>Enter your name</p><input id="sName" placeholder="Name" /></div>
+      <div class="column-container"><p>Enter your email</p><input id="sEmail" placeholder="Email" /></div>
+      <div class="column-container"><p>Enter your major</p><input id="sMajor" placeholder="Major" /></div>
+      <div class="column-container"><p>Enter your resume filename</p><input id="sResume" placeholder="Resume filename" /></div>
+      <div class="column-container"><p>Enter your university name</p><input id="sUniv" placeholder="University Name" /></div>
+      <div class="column-container"><p>Enter your skills (comma separated)</p><input id="sSkills" placeholder="Skills (comma separated)" /></div>
+    </div>
+    <button id="addStudent">Create Student</button>
+  </section>
 
-    <section data-role="student">
-        <h2>Apply to Job</h2>
-        <div class="column">
-            <div class="column-container">
-                <p>Enter your student ID</p>
-                <input id="aStudentId" placeholder="Student_ID (e.g., 1)" />
-            </div>
-            <div class="column-container">
-                <p>Enter your job ID</p>
-                <input id="aJobId" placeholder="Job_ID (e.g., 1)" />
-            </div>
-        </div>
-        <button id="addApplication">Submit Application</button>
-    </section>
+  <section data-role="student">
+    <h2>Apply to Job</h2>
+    <div class="column">
+      <div class="column-container"><p>Enter your student ID</p><input id="aStudentId" placeholder="Student_ID (e.g., 1)" /></div>
+      <div class="column-container"><p>Enter your job ID</p><input id="aJobId" placeholder="Job_ID (e.g., 1)" /></div>
+    </div>
+    <button id="addApplication">Submit Application</button>
+  </section>
 
-<!-- Recruiter -->
-<section data-role="recruiter">
+  <!-- Recruiter -->
+  <section data-role="recruiter">
     <h2>Post a Job</h2>
     <div class="column">
-        <div class="column-container">
-            <p>Enter job title</p>
-            <input id="jTitle" placeholder="Title" />
-        </div>
-        <div class="column-container">
-            <p>Enter job description</p>
-            <input id="jDesc" placeholder="Description" />
-        </div>
-        <div class="column-container">
-            <p>Enter job requirements</p>
-            <input id="jReqs" placeholder="Requirements" />
-        </div>
-        <div class="column-container">
-            <p>Enter job location</p>
-            <input id="jLoc" placeholder="Location" />
-        </div>
-        <div class="column-container">
-            <p>Enter job salary</p>
-            <input id="jSalary" placeholder="Salary (e.g., 30.00)" />
-        </div>
-        <div class="column-container">
-            <p>Enter job deadline</p>
-            <input id="jDeadline" placeholder="Deadline (YYYY-MM-DD)" />
-        </div>
-        <div class="column-container">
-            <p>Enter job status</p>
-            <input id="jStatus" placeholder="Status (e.g., Open)" value="Open" />
-        </div>
-        <div class="column-container">
-            <p>Enter company ID</p>
-            <input id="jCompanyId" placeholder="Company_ID (e.g., 1)" />
-        </div>
-        <div class="column-container">
-            <p>Enter recruiter ID</p>
-            <input id="jRecruiterId" placeholder="Recruiter_ID (e.g., 1)" />
-        </div>
+      <div class="column-container"><p>Enter job title</p><input id="jTitle" placeholder="Title" /></div>
+      <div class="column-container"><p>Enter job description</p><input id="jDesc" placeholder="Description" /></div>
+      <div class="column-container"><p>Enter job requirements</p><input id="jReqs" placeholder="Requirements" /></div>
+      <div class="column-container"><p>Enter job location</p><input id="jLoc" placeholder="Location" /></div>
+      <div class="column-container"><p>Enter job salary</p><input id="jSalary" placeholder="Salary (e.g., 30.00)" /></div>
+      <div class="column-container"><p>Enter job deadline</p><input id="jDeadline" placeholder="Deadline (YYYY-MM-DD)" /></div>
+      <div class="column-container"><p>Enter job status</p><input id="jStatus" placeholder="Status (e.g., Open)" value="Open" /></div>
+      <div class="column-container"><p>Enter company ID</p><input id="jCompanyId" placeholder="Company_ID (e.g., 1)" /></div>
+      <div class="column-container"><p>Enter recruiter ID</p><input id="jRecruiterId" placeholder="Recruiter_ID (e.g., 1)" /></div>
     </div>
     <button id="postJob">Create Job</button>
   </section>
-  
+
   <section data-role="recruiter">
     <h2>Update Application Status</h2>
     <div class="column">
-        <div class="column-container">
-            <p>Enter application ID</p>
-            <input id="applId" placeholder="Application_ID (e.g., 1)" />
-        </div>
-        <div class="column-container">
-            <p>Enter updated applicaton status</p>
-            <input id="applStatus" placeholder="New Status (Under Review / Interview Scheduled / Offer / Rejected)" />
-        </div>
+      <div class="column-container"><p>Enter application ID</p><input id="applId" placeholder="Application_ID (e.g., 1)" /></div>
+      <div class="column-container"><p>Enter updated application status</p><input id="applStatus" placeholder="Under Review / Interview Scheduled / Offer / Rejected" /></div>
     </div>
     <button id="updateApplicationStatus">Update Status</button>
   </section>
-  
 
-    <script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
